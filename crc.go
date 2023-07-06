@@ -22,26 +22,152 @@ type Parameters struct {
 }
 
 var (
-	// X-25 CRC parameters, also known as CRC-16/IBM-SDLC, CRC-16/ISO-HDLC, CRC-B
-	X25 = &Parameters{Width: 16, Polynomial: 0x1021, Init: 0xFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0xFFFF}
-	// CCITT CRC parameters
-	CCITT = &Parameters{Width: 16, Polynomial: 0x1021, Init: 0xFFFF, ReflectIn: false, ReflectOut: false, FinalXor: 0x0}
-	// CRC16 CRC parameters, also known as ARC
-	CRC16 = &Parameters{Width: 16, Polynomial: 0x8005, Init: 0x0000, ReflectIn: true, ReflectOut: true, FinalXor: 0x0}
-	// XMODEM is a set of CRC parameters commonly referred as "XMODEM"
-	XMODEM = &Parameters{Width: 16, Polynomial: 0x1021, Init: 0x0000, ReflectIn: false, ReflectOut: false, FinalXor: 0x0}
+	// CRC-8, CRC-8/SMBUS
+	CRC8 = &Parameters{Width: 8, Polynomial: 0x07, Init: 0x00, ReflectIn: false, ReflectOut: false, FinalXor: 0x00}
+	// CRC-8/CDMA2000
+	CRC8CDMA2000 = &Parameters{Width: 8, Polynomial: 0x9B, Init: 0xFF, ReflectIn: false, ReflectOut: false, FinalXor: 0x00}
+	// CRC-8/DARC
+	CRC8DARC = &Parameters{Width: 8, Polynomial: 0x39, Init: 0x00, ReflectIn: true, ReflectOut: true, FinalXor: 0x00}
+	// CRC-8/DVB-S2
+	CRC8DVBS2 = &Parameters{Width: 8, Polynomial: 0xD5, Init: 0x00, ReflectIn: false, ReflectOut: false, FinalXor: 0x00}
+	// CRC-8/TECH-3250, CRC-8/AES, CRC-8/EBU
+	CRC8EBU = &Parameters{Width: 8, Polynomial: 0x1D, Init: 0xFF, ReflectIn: true, ReflectOut: true, FinalXor: 0x00}
+	// CRC-8/ICODE
+	CRC8ICODE = &Parameters{Width: 8, Polynomial: 0x1D, Init: 0xFD, ReflectIn: false, ReflectOut: false, FinalXor: 0x00}
+	// CRC-8/ITU, CRC-8/I-432-1
+	CRC8ITU = &Parameters{Width: 8, Polynomial: 0x07, Init: 0x00, ReflectIn: false, ReflectOut: false, FinalXor: 0x55}
+	// CRC-8/MAXIM, CRC-8/MAXIM-DOW, DOW-CRC
+	CRC8MAXIM = &Parameters{Width: 8, Polynomial: 0x31, Init: 0x00, ReflectIn: true, ReflectOut: true, FinalXor: 0x00}
+	// CRC-8/ROHC
+	CRC8ROHC = &Parameters{Width: 8, Polynomial: 0x07, Init: 0xFF, ReflectIn: true, ReflectOut: true, FinalXor: 0x00}
+	// CRC-8/WCDMA
+	CRC8WCDMA = &Parameters{Width: 8, Polynomial: 0x9B, Init: 0x00, ReflectIn: true, ReflectOut: true, FinalXor: 0x00}
+
+	// Missing
+	// CRC-8/AUTOSAR
+	CRC8AUTOSAR = &Parameters{Width: 8, Polynomial: 0x2F, Init: 0xFF, ReflectIn: false, ReflectOut: false, FinalXor: 0xFF}
+	// CRC-8/BLUETOOTH
+	CRC8BLUETOOTH = &Parameters{Width: 8, Polynomial: 0xA7, Init: 0x00, ReflectIn: true, ReflectOut: true, FinalXor: 0x00}
+	// CRC-8/GSM-A
+	CRC8GSMA = &Parameters{Width: 8, Polynomial: 0x1D, Init: 0x00, ReflectIn: false, ReflectOut: false, FinalXor: 0x00}
+	// CRC-8/GSM-B
+	CRC8GSMB = &Parameters{Width: 8, Polynomial: 0x49, Init: 0x00, ReflectIn: false, ReflectOut: false, FinalXor: 0xFF}
+	// CRC-8/HITAG
+	CRC8HITAG = &Parameters{Width: 8, Polynomial: 0x1D, Init: 0xFF, ReflectIn: false, ReflectOut: false, FinalXor: 0x00}
+	// CRC-8/LTE
+	CRC8LTE = &Parameters{Width: 8, Polynomial: 0x9b, Init: 0x00, ReflectIn: false, ReflectOut: false, FinalXor: 0x00}
+	// CRC-8/MIFARE-MAD
+	CRC8MIFAREMAD = &Parameters{Width: 8, Polynomial: 0x1D, Init: 0xC7, ReflectIn: false, ReflectOut: false, FinalXor: 0x00}
+	// CRC-8/NRSC-5
+	CRC8NRSC5 = &Parameters{Width: 8, Polynomial: 0x31, Init: 0xFF, ReflectIn: false, ReflectOut: false, FinalXor: 0x00}
+	// CRC-8/OPENSAFETY
+	CRC8OPENSAFETY = &Parameters{Width: 8, Polynomial: 0x2F, Init: 0x00, ReflectIn: false, ReflectOut: false, FinalXor: 0x00}
+	// CRC-8/SAE-J1850
+	CRC8SAEJ1850 = &Parameters{Width: 8, Polynomial: 0x1D, Init: 0xFF, ReflectIn: false, ReflectOut: false, FinalXor: 0xFF}
+
+	// CRC-16/ARC, ARC, CRC-16, CRC-16/LHA, CRC-IBM
+	CRC16ARC = &Parameters{Width: 16, Polynomial: 0x8005, Init: 0x0000, ReflectIn: true, ReflectOut: true, FinalXor: 0x0000}
+	// CRC-16/SPI-FUJITSU, CRC-16/AUG-CCITT
+	CRC16AUGCCITT = &Parameters{Width: 16, Polynomial: 0x1021, Init: 0x1D0F, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
+	// CRC-16/UMTS, CRC-16/BUYPASS, CRC-16/VERIFONE
+	CRC16BUYPASS = &Parameters{Width: 16, Polynomial: 0x8005, Init: 0x0000, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
+	// CCITT CRC parameters, CRC-16/IBM-3740, CRC-16/AUTOSAR
+	CRC16CCITTFALSE = &Parameters{Width: 16, Polynomial: 0x1021, Init: 0xFFFF, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
+	CCITT = CRC16CCITTFALSE
+	// CRC-16/CDMA2000
+	CRC16CDMA2000 = &Parameters{Width: 16, Polynomial: 0xC867, Init: 0xFFFF, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
+	// CRC-16/DDS-110
+	CRC16DDS110 = &Parameters{Width: 16, Polynomial: 0x8005, Init: 0x800D, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
+	// CRC-16/DECT-R, R-CRC-16
+	CRC16DECTR = &Parameters{Width: 16, Polynomial: 0x0589, Init: 0x0000, ReflectIn: false, ReflectOut: false, FinalXor: 0x0001}
+	// CRC-16/DECT-X, X-CRC-16
+	CRC16DECTX = &Parameters{Width: 16, Polynomial: 0x0589, Init: 0x0000, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
+	// CRC-16/DNP
+	CRC16DNP = &Parameters{Width: 16, Polynomial: 0x3D65, Init: 0x0000, ReflectIn: true, ReflectOut: true, FinalXor: 0xFFFF}
+	// CRC-16/EN-13757
+	CRC16EN13757 = &Parameters{Width: 16, Polynomial: 0x3D65, Init: 0x0000, ReflectIn: false, ReflectOut: false, FinalXor: 0xFFFF}
+	// CRC-16/GENIBUS, CRC-16/DARC, CRC-16/EPC, CRC-16/EPC-C1G2, CRC-16/I-CODE
+	CRC16GENIBUS = &Parameters{Width: 16, Polynomial: 0x1021, Init: 0xFFFF, ReflectIn: false, ReflectOut: false, FinalXor: 0xFFFF}
+	// CRC-16/KERMIT, CRC-16/BLUETOOTH, CRC-16/CCITT, CRC-16/CCITT-TRUE, CRC-16/V-41-LSB, CRC-CCITT, KERMIT
+	CRC16KERMIT = &Parameters{Width: 16, Polynomial: 0x1021, Init: 0x0000, ReflectIn: true, ReflectOut: true, FinalXor: 0x0000}
+	// CRC-16/MAXIM-DOW, CRC-16/MAXIM
+	CRC16MAXIM = &Parameters{Width: 16, Polynomial: 0x8005, Init: 0x0000, ReflectIn: true, ReflectOut: true, FinalXor: 0xFFFF}
+	// CRC-16/MCRF4XX
+	CRC16MCRF4XX = &Parameters{Width: 16, Polynomial: 0x1021, Init: 0xFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0x0000}
+	// CRC-16/MODBUS, MODBUS
+	CRC16MODBUS = &Parameters{Width: 16, Polynomial: 0x8005, Init: 0xFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0x0000}
+	// CRC-16/RIELLO
+	CRC16RIELLO = &Parameters{Width: 16, Polynomial: 0x1021, Init: 0xB2AA, ReflectIn: true, ReflectOut: true, FinalXor: 0x0000}
+	// CRC-16/T10-DIF
+	CRC16T10DIF = &Parameters{Width: 16, Polynomial: 0x8BB7, Init: 0x0000, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
+	// CRC-16/TELEDISK
+	CRC16TELEDISK = &Parameters{Width: 16, Polynomial: 0xA097, Init: 0x0000, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
+	// CRC-16/TMS37157
+	CRC16TMS37157 = &Parameters{Width: 16, Polynomial: 0x1021, Init: 0x89EC, ReflectIn: true, ReflectOut: true, FinalXor: 0x0000}
+	// CRC-16/USB
+	CRC16USB = &Parameters{Width: 16, Polynomial: 0x8005, Init: 0xFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0xFFFF}
+	// CRC-16/IBM-SDLC, CRC-16/ISO-HDLC, CRC-16/ISO-IEC-14443-3-B, CRC-16/X-25, CRC-B, X-25
+	CRC16X25 = &Parameters{Width: 16, Polynomial: 0x1021, Init: 0xFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0xFFFF}
+	X25 = CRC16X25
+	// CRC-16/XMODEM, CRC-16/ACORN, CRC-16/LTE, CRC-16/V-41-MSB, XMODEM, ZMODEM
+	CRC16XMODEM = &Parameters{Width: 16, Polynomial: 0x1021, Init: 0x0000, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
 	// XMODEM2 is another set of CRC parameters commonly referred as "XMODEM"
 	XMODEM2 = &Parameters{Width: 16, Polynomial: 0x8408, Init: 0x0000, ReflectIn: true, ReflectOut: true, FinalXor: 0x0}
+	// CRC-16/ISO-IEC-14443-3-A, CRC-A
+	CRCA = &Parameters{Width: 16, Polynomial: 0x1021, Init: 0xC6C6, ReflectIn: true, ReflectOut: true, FinalXor: 0x0000}
+
+	// MISSING
+	// CRC-16/CMS
+	CRC16CMS = &Parameters{Width: 16, Polynomial: 0x8005, Init: 0xFFFF, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
+	// CRC-16/GSM
+	CRC16GSM = &Parameters{Width: 16, Polynomial: 0x1021, Init: 0x0000, ReflectIn: false, ReflectOut: false, FinalXor: 0xFFFF}
+	// CRC-16/LJ1200
+	CRC16LJ1200 = &Parameters{Width: 16, Polynomial: 0x6F63, Init: 0x0000, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
+	// CRC-16/M17
+	CRC16M17 = &Parameters{Width: 16, Polynomial: 0x5935, Init: 0xFFFF, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
+	// CRC-16/NRSC-5
+	CRC16NRSC5 = &Parameters{Width: 16, Polynomial: 0x080B, Init: 0xFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0x0000}
+	// CRC-16/OPENSAFETY-A
+	CRC16OPENSAFETYA = &Parameters{Width: 16, Polynomial: 0x5935, Init: 0x0000, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
+	// CRC-16/OPENSAFETY-B
+	CRC16OPENSAFETYB = &Parameters{Width: 16, Polynomial: 0x755B, Init: 0x0000, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
+	// CRC-16/PROFIBUS
+	CRC16PROFIBUS = &Parameters{Width: 16, Polynomial: 0x1DCF, Init: 0xFFFF, ReflectIn: false, ReflectOut: false, FinalXor: 0xFFFF}
 
 	// CRC32 is by far the the most commonly used CRC-32 polynom and set of parameters
+	// CRC-32, CRC-32/ISO-HDLC, CRC-32/ADCCP, CRC-32/V-42, CRC-32/XZ, PKZIP
 	CRC32 = &Parameters{Width: 32, Polynomial: 0x04C11DB7, Init: 0xFFFFFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0xFFFFFFFF}
 	// IEEE is an alias to CRC32
 	IEEE = CRC32
-	// Castagnoli polynomial. used in iSCSI. And also provided by hash/crc32 package.
-	Castagnoli = &Parameters{Width: 32, Polynomial: 0x1EDC6F41, Init: 0xFFFFFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0xFFFFFFFF}
-	// CRC32C is an alias to Castagnoli
-	CRC32C = Castagnoli
-	// Koopman polynomial
+	// CRC-32/BZIP2, CRC-32/AAL5, CRC-32/DECT-B, B-CRC-32
+	CRC32BZIP2 = &Parameters{Width: 32, Polynomial: 0x04C11DB7, Init: 0xFFFFFFFF, ReflectIn: false, ReflectOut: false, FinalXor: 0xFFFFFFFF}
+	// CRC-32/JAMCRC, JAMCRC
+	CRC32JAMCRC = &Parameters{Width: 32, Polynomial: 0x04C11DB7, Init: 0xFFFFFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0x00000000}
+	// CRC-32/MPEG-2
+	CRC32MPEG2 = &Parameters{Width: 32, Polynomial: 0x04C11DB7, Init: 0xFFFFFFFF, ReflectIn: false, ReflectOut: false, FinalXor: 0x00000000}
+	// CRC-32/POSIX, CRC-32/CKSUM, CKSUM
+	CRC32POSIX = &Parameters{Width: 32, Polynomial: 0x04C11DB7, Init: 0x00000000, ReflectIn: false, ReflectOut: false, FinalXor: 0xFFFFFFFF}
+	// CRC-32/SATA
+	CRC32SATA = &Parameters{Width: 32, Polynomial: 0x04C11DB7, Init: 0x52325032, ReflectIn: false, ReflectOut: false, FinalXor: 0x00000000}
+	// CRC-32/XFER
+	CRC32XFER = &Parameters{Width: 32, Polynomial: 0x000000AF, Init: 0x00000000, ReflectIn: false, ReflectOut: false, FinalXor: 0x00000000}
+	// CRC-32C, CRC-32/BASE91-C, CRC-32/CASTAGNOLI, CRC-32/INTERLAKEN, CRC-32/ISCSI
+	CRC32C = &Parameters{Width: 32, Polynomial: 0x1EDC6F41, Init: 0xFFFFFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0xFFFFFFFF}
+	Castagnoli = CRC32C
+	// CRC-32D, CRC-32/BASE91-D
+	CRC32D = &Parameters{Width: 32, Polynomial: 0xA833982B, Init: 0xFFFFFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0xFFFFFFFF}
+	// CRC-32Q, CRC-32/AIXM
+	CRC32Q = &Parameters{Width: 32, Polynomial: 0x814141AB, Init: 0x00000000, ReflectIn: false, ReflectOut: false, FinalXor: 0x00000000}
+
+	// MISSING
+	// CRC-32/AUTOSAR
+	CRC32AUTOSAR = &Parameters{Width: 32, Polynomial: 0xF4ACFB13, Init: 0xFFFFFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0xFFFFFFFF}
+	// CRC-32/CD-ROM-EDC
+	CRC32CDROMEDC = &Parameters{Width: 32, Polynomial: 0x8001801B, Init: 0x00000000, ReflectIn: true, ReflectOut: true, FinalXor: 0x00000000}
+	// CRC-32/MEF
+	CRC32MEF = &Parameters{Width: 32, Polynomial: 0x741B8CD7, Init: 0xFFFFFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0x00000000}
+
+	// Koopman polynomial - is this CRC-32/MEF but finalxor is wrong?
 	Koopman = &Parameters{Width: 32, Polynomial: 0x741B8CD7, Init: 0xFFFFFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0xFFFFFFFF}
 
 	// CRC64ISO is set of parameters commonly known as CRC64-ISO
