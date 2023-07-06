@@ -6,6 +6,9 @@ any CRC algorithm used in the wild by choosing appropriate Parameters. This obvi
 
 This package has been largely inspired by Ross Williams' 1993 paper "A Painless Guide to CRC Error Detection Algorithms".
 
+## Fork Update
+
+Added missing 8, 16, and 32 bit algorithms. 
 
 ## Installation
 
