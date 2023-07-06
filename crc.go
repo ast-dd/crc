@@ -73,7 +73,7 @@ var (
 	CRC16BUYPASS = &Parameters{Width: 16, Polynomial: 0x8005, Init: 0x0000, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
 	// CCITT CRC parameters, CRC-16/IBM-3740, CRC-16/AUTOSAR
 	CRC16CCITTFALSE = &Parameters{Width: 16, Polynomial: 0x1021, Init: 0xFFFF, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
-	CCITT = CRC16CCITTFALSE
+	CCITT           = CRC16CCITTFALSE
 	// CRC-16/CDMA2000
 	CRC16CDMA2000 = &Parameters{Width: 16, Polynomial: 0xC867, Init: 0xFFFF, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
 	// CRC-16/DDS-110
@@ -108,7 +108,7 @@ var (
 	CRC16USB = &Parameters{Width: 16, Polynomial: 0x8005, Init: 0xFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0xFFFF}
 	// CRC-16/IBM-SDLC, CRC-16/ISO-HDLC, CRC-16/ISO-IEC-14443-3-B, CRC-16/X-25, CRC-B, X-25
 	CRC16X25 = &Parameters{Width: 16, Polynomial: 0x1021, Init: 0xFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0xFFFF}
-	X25 = CRC16X25
+	X25      = CRC16X25
 	// CRC-16/XMODEM, CRC-16/ACORN, CRC-16/LTE, CRC-16/V-41-MSB, XMODEM, ZMODEM
 	CRC16XMODEM = &Parameters{Width: 16, Polynomial: 0x1021, Init: 0x0000, ReflectIn: false, ReflectOut: false, FinalXor: 0x0000}
 	// XMODEM2 is another set of CRC parameters commonly referred as "XMODEM"
@@ -152,7 +152,7 @@ var (
 	// CRC-32/XFER
 	CRC32XFER = &Parameters{Width: 32, Polynomial: 0x000000AF, Init: 0x00000000, ReflectIn: false, ReflectOut: false, FinalXor: 0x00000000}
 	// CRC-32C, CRC-32/BASE91-C, CRC-32/CASTAGNOLI, CRC-32/INTERLAKEN, CRC-32/ISCSI
-	CRC32C = &Parameters{Width: 32, Polynomial: 0x1EDC6F41, Init: 0xFFFFFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0xFFFFFFFF}
+	CRC32C     = &Parameters{Width: 32, Polynomial: 0x1EDC6F41, Init: 0xFFFFFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0xFFFFFFFF}
 	Castagnoli = CRC32C
 	// CRC-32D, CRC-32/BASE91-D
 	CRC32D = &Parameters{Width: 32, Polynomial: 0xA833982B, Init: 0xFFFFFFFF, ReflectIn: true, ReflectOut: true, FinalXor: 0xFFFFFFFF}
