@@ -1,3 +1,3 @@
-module github.com/gdbinit/crc
+module github.com/ast-dd/crc
 
 go 1.18

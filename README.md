@@ -1,4 +1,4 @@
-crc [![GoDoc](https://godoc.org/github.com/snksoft/src?status.png)](https://godoc.org/github.com/snksoft/crc)
+crc [![GoDoc](https://godoc.org/github.com/ast-dd/src?status.png)](https://godoc.org/github.com/ast-dd/crc)
 ========
 This package implements generic CRC calculations up to 64 bits wide.
 It aims to be fairly fast and fairly complete, allowing users to match pretty much
@@ -8,6 +8,10 @@ This package has been largely inspired by Ross Williams' 1993 paper "A Painless 
 
 ## Fork Update
 
+### github.com/ast-dd/crc
+
+### github.com/gdbinit/crc
+
 Added missing 8, 16, and 32 bit algorithms. 
 
 ## Installation
@@ -15,13 +19,7 @@ Added missing 8, 16, and 32 bit algorithms.
 To install, simply execute:
 
 ```
-go get github.com/snksoft/crc
-```
-
-or:
-
-```
-go get gopkg.in/snksoft/crc.v1
+go get github.com/ast-dd/crc
 ```
 
 ## Usage
@@ -32,7 +30,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/snksoft/crc"
+	"github.com/ast-dd/crc"
 )
 
 func main() {
@@ -49,7 +47,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/snksoft/crc"
+	"github.com/ast-dd/crc"
 )
 
 func main() {
@@ -79,7 +77,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/snksoft/crc"
+	"github.com/ast-dd/crc"
 )
 
 func main() {
