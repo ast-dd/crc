@@ -10,6 +10,8 @@ This package has been largely inspired by Ross Williams' 1993 paper "A Painless 
 
 ### github.com/ast-dd/crc
 
+Added `GetParameters()`.
+
 ### github.com/gdbinit/crc
 
 Added missing 8, 16, and 32 bit algorithms. 
