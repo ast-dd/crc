@@ -46,3 +46,18 @@ func TestCalculateCRCBytes(t *testing.T) {
 		}
 	})
 }
+
+func TestAppendCRCBytes(t *testing.T) {
+	for _, tt := range byteTests {
+		t.Run(tt.name, func(t *testing.T) {
+			for i, testString := range byteTestStrings {
+				data := []byte(testString)
+
+				got, want := crc.AppendCRCBytes(tt.crcParams, data), append(data, tt.wantBytes[i]...)
+				if !reflect.DeepEqual(got, want) {
+					t.Errorf("CalculateCRCBytes(%q) = %v, want %v", testString, got, want)
+				}
+			}
+		})
+	}
+}
