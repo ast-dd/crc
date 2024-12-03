@@ -5,11 +5,19 @@ import (
 )
 
 // CalculateCRCBytes works according to CalculateCRC, but returns a byte slice
-func CalculateCRCBytes(crcParams *Parameters, data []byte) (bs []byte) {
+func CalculateCRCBytes(crcParams *Parameters, data []byte) []byte {
 	checksum := CalculateCRC(crcParams, data)
-	bs = make([]byte, 8)
-	binary.LittleEndian.PutUint64(bs, checksum)
-	bs = bs[:crcParams.Width/8]
+	return checksumToBytes(checksum, int(crcParams.Width/8))
+}
 
-	return
+// CalculateCRCBytes works according to CalculateCRC, but returns a byte slice
+func (h *Hash) CalculateCRCBytes(data []byte) []byte {
+	checksum := h.CalculateCRC(data)
+	return checksumToBytes(checksum, int(h.table.crcParams.Width/8))
+}
+
+func checksumToBytes(checksum uint64, l int) []byte {
+	bs := make([]byte, 8)
+	binary.LittleEndian.PutUint64(bs, checksum)
+	return bs[:l]
 }
