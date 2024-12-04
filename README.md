@@ -10,7 +10,12 @@ This package has been largely inspired by Ross Williams' 1993 paper "A Painless 
 
 ### github.com/ast-dd/crc
 
-Added `GetParameters()`.
+Added convenience functions:
+
+- `GetParameters()`
+- `CalculateCRCBytes()`, `Hash#CalculateCRCBytes`
+- `AppendCRCBytes()`
+- `CheckCRCBytes()`
 
 ### github.com/gdbinit/crc
 

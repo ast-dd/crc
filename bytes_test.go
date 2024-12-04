@@ -61,3 +61,47 @@ func TestAppendCRCBytes(t *testing.T) {
 		})
 	}
 }
+
+func TestCheckCRCBytes(t *testing.T) {
+	for _, tt := range byteTests {
+		t.Run(tt.name, func(t *testing.T) {
+			for i, testString := range byteTestStrings {
+				var want bool
+				data := []byte(testString)
+
+				// correct
+				correct := tt.wantBytes[i]
+				got := crc.CheckCRCBytes(tt.crcParams, data, correct)
+				if want = true; got != want {
+					t.Errorf("CheckCRCBytes(%q, %#v) = %v, want %v", testString, correct, got, want)
+				}
+
+				// incorrect
+				incorrect := make([]byte, len(correct))
+				copy(incorrect, correct)
+				incorrect[0] += 1
+				got = crc.CheckCRCBytes(tt.crcParams, data, incorrect)
+				if want = false; got != want {
+					t.Errorf("CheckCRCBytes(%q, %#v) = %v, want %v", testString, incorrect, got, want)
+				}
+
+				// checksum too short
+				short := make([]byte, len(correct)-1)
+				copy(short, correct)
+				got = crc.CheckCRCBytes(tt.crcParams, data, short)
+				if want = false; got != want {
+					t.Errorf("CheckCRCBytes(%q, %#v) = %v, want %v", testString, short, got, want)
+				}
+
+				// checksum too long
+				long := make([]byte, len(correct)+1)
+				copy(long, correct)
+				long = append(long, 0x00)
+				got = crc.CheckCRCBytes(tt.crcParams, data, long)
+				if want = false; got != want {
+					t.Errorf("CheckCRCBytes(%q, %#v) = %v, want %v", testString, long, got, want)
+				}
+			}
+		})
+	}
+}

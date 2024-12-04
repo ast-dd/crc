@@ -22,6 +22,12 @@ func checksumToBytes(checksum uint64, l int) []byte {
 	return bs[:l]
 }
 
+func bytesToChecksum(bytes []byte) uint64 {
+	full := make([]byte, 8)
+	copy(full, bytes)
+	return binary.LittleEndian.Uint64(full)
+}
+
 // AppendCRCBytes returns a copy of the data byte slice with the checksum appended
 func AppendCRCBytes(crcParams *Parameters, data []byte) []byte {
 	checksum := CalculateCRCBytes(crcParams, data)
@@ -29,4 +35,13 @@ func AppendCRCBytes(crcParams *Parameters, data []byte) []byte {
 	copy(appended, data)
 	appended = append(appended, checksum...)
 	return appended
+}
+
+func CheckCRCBytes(crcParams *Parameters, data []byte, checksum []byte) bool {
+	if len(checksum) != int(crcParams.Width/8) {
+		return false
+	}
+	got := bytesToChecksum(checksum)
+	calculated := CalculateCRC(crcParams, data)
+	return got == calculated
 }
