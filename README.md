@@ -12,7 +12,7 @@ This package has been largely inspired by Ross Williams' 1993 paper "A Painless 
 
 Added convenience functions:
 
-- `GetParameters()`
+- `GetParameters()`, `GetParametersName()`
 - `CalculateCRCBytes()`, `Hash#CalculateCRCBytes`
 - `AppendCRCBytes()`
 - `CheckCRCBytes()`

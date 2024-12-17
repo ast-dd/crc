@@ -97,3 +97,15 @@ func GetParameters(s string) (parameters *Parameters, err error) {
 	}
 	return
 }
+
+// GetParametersName returns the name for given CRC parameters by checking the pointer
+func GetParametersName(parameters *Parameters) (name string, err error) {
+	for s, p := range parametersMap {
+		if p == parameters {
+			name = s
+			return
+		}
+	}
+	err = fmt.Errorf("parameters not from known list")
+	return
+}
